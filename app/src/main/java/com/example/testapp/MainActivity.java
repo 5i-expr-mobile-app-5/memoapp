@@ -7,10 +7,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private String APP_TAG = "MyApp";
@@ -18,12 +23,30 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> list = new ArrayList<>();
 
+    private EditText editText;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+
+        editText = findViewById(R.id.edit_text);
+
+        textView = findViewById(R.id.text_view);
+
+        Button button = findViewById(R.id.button);
+
+        button.setOnClickListener( v-> {
+            String text = editText.getText().toString();
+
+            this.add(text, pref);
+            this.updateState(pref);
+            textView.setText(this.list.toString());
+
+            editText.getEditableText().clear();
+        });
     }
 
     private void updateState(SharedPreferences pref) {
@@ -39,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
 
         Date now = new Date();
-        String content = now.toString() + " " + message;
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd HH:mm");
+        String nowString = format.format(now);
+        String content = nowString + " " + message;
         list.add(content);
 
         String serializedList = list.toString();
