@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences pref2 = this.getSharedPreferences(LIST_KEY, Context.MODE_PRIVATE);
+        SharedPreferences pref = this.getSharedPreferences(LIST_KEY, Context.MODE_PRIVATE);
+        this.updateState(pref);
 
         editText = findViewById(R.id.edit_text);
 
