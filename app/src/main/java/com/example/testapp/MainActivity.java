@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         String data = pref.getString(LIST_KEY, default_value);
         Log.d(APP_TAG, data);
 
+        if (data.isEmpty()) return;
         List<String> array = Arrays.asList(data.split(", "));
         this.list = new ArrayList(array);
     }
