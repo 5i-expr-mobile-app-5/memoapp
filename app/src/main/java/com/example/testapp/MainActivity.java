@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences pref = this.getSharedPreferences(LIST_KEY, Context.MODE_PRIVATE);
-        this.updateState(pref);
 
         editText = findViewById(R.id.edit_text);
 
@@ -43,18 +42,22 @@ public class MainActivity extends AppCompatActivity {
             String text = editText.getText().toString();
 
             this.add(text, pref);
-            this.updateState(pref);
+            this.syncList(pref);
             textView.setText(this.list.toString());
 
             editText.getEditableText().clear();
         });
+
+        this.syncList(pref);
+        textView.setText(this.list.toString());
     }
 
-    private void updateState(SharedPreferences pref) {
+    private void syncList(SharedPreferences pref) {
         String default_value = "";
         String data = pref.getString(LIST_KEY, default_value);
         Log.d(APP_TAG, data);
 
+        if (data.isEmpty()) return;
         List<String> array = Arrays.asList(data.split(", "));
         this.list = new ArrayList(array);
     }
