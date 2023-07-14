@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private String APP_TAG = "MyApp";
-    private String LIST_KEY = "monologue_list";
+    private String LIST_KEY = "memoapp.list";
 
     private ArrayList<String> list = new ArrayList<>();
 
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences pref2 = this.getSharedPreferences(LIST_KEY, Context.MODE_PRIVATE);
 
         editText = findViewById(R.id.edit_text);
 
